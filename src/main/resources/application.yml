@@ -4,18 +4,25 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://j9d107.p.ssafy.io:9761/eureka
+      defaultZone: http://localhost:9761/eureka
 
 spring:
   application:
     name: podo-gateway-service
-#  cloud:
-#    gateway:
-#      routes:
-#        - id: dotori-user-service
-#          uri: lb://dotori-user-service    # ?? ?? URI
-#          predicates:                   # ?? ??? Path ?? ??
-#            - Path=/dotoriuser-service/**    # ?? Path
-#          filters:
-#            - StripPrefix=1
-
+  cloud:
+    gateway:
+      routes:
+        - id: podo-user-service
+          uri: lb://podo-user-service    # ?? ?? URI
+          predicates:                   # ?? ??? Path ?? ??
+            - Path=/podo-user-service/**    # ?? Path
+          filters:
+            - StripPrefix=1
+        - id: podo-auth-service
+          uri: lb://podo-auth-service
+          predicates:
+            - Path=/podo-auth-service/**
+          filters:
+            - StripPrefix=1
+  main:
+    allow-bean-definition-overriding: true
