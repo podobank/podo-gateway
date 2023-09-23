@@ -1,0 +1,21 @@
+server:
+  port: 9600
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://j9d107.p.ssafy.io:9761/eureka
+
+spring:
+  application:
+    name: podo-gateway-service
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: dotori-user-service
+#          uri: lb://dotori-user-service    # ?? ?? URI
+#          predicates:                   # ?? ??? Path ?? ??
+#            - Path=/dotoriuser-service/**    # ?? Path
+#          filters:
+#            - StripPrefix=1
+
