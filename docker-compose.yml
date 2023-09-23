@@ -1,0 +1,11 @@
+version: "3"
+services:
+  eureka:
+    image: bangjinseong/podo_gateway:${BUILD_NUMBER}
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - BUILD_NUMBER
+    ports:
+      - "9600:9600"
