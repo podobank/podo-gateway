@@ -52,16 +52,23 @@ public class JwtAuthFilter implements WebFilter {
         String token = extractTokenFromRequest(request);
 
         Authentication authentication = null;
+        ServerWebExchange modifiedExchange = null;
         if (StringUtils.hasText(token)) {
             // 토큰이 있는 경우
             if (jwtProvider.verifyToken(token)) { // 권한 확인
                 authentication = jwtProvider.getAuthentication(token); // 인증 정보와 권한 가져오기
                 SecurityContextHolder.getContext().setAuthentication(authentication); // SecurityContextHolder : spring security 인메모리 세션저장소
+
+                // request에 securitycontext 저장
+                String email = authentication.getPrincipal().toString();
+                modifiedExchange = exchange.mutate()
+                        .request(builder -> builder.header("userEmail", email))
+                        .build();
             }
         }
 
         if(authentication != null) {
-            return chain.filter(exchange)
+            return chain.filter(modifiedExchange)
                     .contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication));
         } else {
             return chain.filter(exchange);
