@@ -9,3 +9,6 @@ services:
         - BUILD_NUMBER
     ports:
       - "9600:9600"
+    environment:
+      - ENCRYPT_KEY=${ENCRYPT_KEY_VALUE}
+      - TZ=Asia/Seoul
