@@ -4,7 +4,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:9761/eureka
+      defaultZone: http://j9d107.p.ssafy.io:9761/eureka
 
 spring:
   application:
@@ -24,5 +24,13 @@ spring:
             - Path=/podo-auth-service/**
           filters:
             - StripPrefix=1
+  config:
+    import: "optional:configserver:http://j9d107.p.ssafy.io:9900/"
+    config:
+      name: podo
+      profile: gateway
   main:
     allow-bean-definition-overriding: true
+
+encrypt:
+  key: ${ENCRYPT_KEY}
