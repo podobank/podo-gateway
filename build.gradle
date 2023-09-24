@@ -38,6 +38,9 @@ dependencies {
 	implementation 'org.json:json:20230227'
 
 	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+
+	// Spring Cloud Config Client
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 }
 
 dependencyManagement {
