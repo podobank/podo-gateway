@@ -19,7 +19,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtProvider {
 
-    @Value("${jwt.secret-key}")
+    @Value("${jwt.secret.key}")
     private String SECRET_KEY;
 
     public boolean verifyToken(String token) {

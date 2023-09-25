@@ -43,12 +43,16 @@ public class SecurityConfig {
                 .formLogin().disable()
                 .authorizeExchange()
 
-                .pathMatchers("/podo-auth-service/**").permitAll()
-                .pathMatchers("/podo-user-service/**").hasAnyRole("USER", "MANAGER", "ADMIN")
-                .pathMatchers("/podo-account-service/**").hasAnyRole("USER", "MANAGER", "ADMIN")
-                .pathMatchers("/podo-openbank-service/**").hasAnyRole("MANAGER", "ADMIN")
+                .pathMatchers("api/v1/user/admin/**").hasRole("ADMIN")
+                .pathMatchers("/api/v1/account/admin/**").hasRole("ADMIN")
+                .pathMatchers("/api/v1/fintech/admin/**").hasRole("ADMIN")
 
-                .anyExchange().permitAll()
+                .pathMatchers("/api/v1/auth/**").permitAll()
+                .pathMatchers("/api/v1/user/**").hasAnyRole("USER", "MANAGER", "ADMIN")
+                .pathMatchers("/api/v1/account/**").hasAnyRole("USER", "MANAGER", "ADMIN")
+                .pathMatchers("/api/v1/fintech/**").hasAnyRole("MANAGER", "ADMIN")
+
+                .anyExchange().denyAll()
                 .and()
                 .addFilterAt(new JwtAuthFilter(jwtProvider), SecurityWebFiltersOrder.AUTHENTICATION)
                 .logout().disable();

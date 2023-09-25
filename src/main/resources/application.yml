@@ -15,15 +15,21 @@ spring:
         - id: podo-user-service
           uri: lb://podo-user-service    # ?? ?? URI
           predicates:                   # ?? ??? Path ?? ??
-            - Path=/podo-user-service/**    # ?? Path
+            - Path=/api/v1/user/**    # ?? Path
           filters:
-            - StripPrefix=1
+            - StripPrefix=0
         - id: podo-auth-service
           uri: lb://podo-auth-service
           predicates:
-            - Path=/podo-auth-service/**
+            - Path=/api/v1/auth/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=0
+        - id: podo-account-service
+          uri: lb://podo-account-service
+          predicates:
+            - Path=/api/v1/account/**
+          filters:
+            - StripPrefix=0
     config:
       name: podo
       profile: gateway
