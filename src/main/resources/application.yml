@@ -30,6 +30,12 @@ spring:
             - Path=/api/v1/account/**
           filters:
             - StripPrefix=0
+        - id: podo-openbanking-service
+          uri: lb://podo-openbanking-service
+          predicates:
+            - Path=/api/v1/fintech/**
+          filters:
+            - StripPrefix=0
     config:
       name: podo
       profile: gateway
