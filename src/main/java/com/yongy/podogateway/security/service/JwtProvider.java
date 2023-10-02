@@ -41,11 +41,7 @@ public class JwtProvider {
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
 
-        if(claims.get("role") == null) {
-            return new UsernamePasswordAuthenticationToken(getUserEmailFromToken(token), null, null);
-        } else {
-            return new UsernamePasswordAuthenticationToken(getUserEmailFromToken(token), null, Collections.singleton(new SimpleGrantedAuthority(claims.get("role").toString())));
-        }
+        return new UsernamePasswordAuthenticationToken(getUserEmailFromToken(token), null, Collections.singleton(new SimpleGrantedAuthority(claims.get("role").toString())));
     }
 
     // 토큰에서 Claims 추출
